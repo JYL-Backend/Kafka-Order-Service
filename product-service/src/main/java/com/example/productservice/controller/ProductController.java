@@ -4,16 +4,21 @@ import com.example.productservice.dto.ProductDto;
 import com.example.productservice.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/product")
+@RestController
+@RequestMapping("/product-service")
 @RequiredArgsConstructor
 public class ProductController {
     final private ProductService productService;
-    @GetMapping("/{code}")
-    public ProductDto getProduct(String code){
+    @GetMapping("/product/{code}")
+    public ProductDto getProduct(@PathVariable("code") String code){
         return productService.findByCode(code);
     }
+
+    @PostMapping("/product")
+    public Long createProduct(@RequestBody ProductDto dto){
+        return productService.createProduct(dto);
+    }
+
 }

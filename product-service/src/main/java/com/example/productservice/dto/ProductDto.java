@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class ProductDto {
-    String name;
-    String code;
+    private String name;
+    private String code;
+    private long amount;
 }
