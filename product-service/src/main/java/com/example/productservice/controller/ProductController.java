@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product-service")
 @RequiredArgsConstructor
+@RequestMapping("/product-service")
 public class ProductController {
     final private ProductService productService;
     @GetMapping("/product/{code}")
