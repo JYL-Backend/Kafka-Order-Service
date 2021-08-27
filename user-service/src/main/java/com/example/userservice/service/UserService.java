@@ -3,42 +3,49 @@ package com.example.userservice.service;
 import com.example.userservice.dto.RequestUserDto;
 import com.example.userservice.dto.ResponseUserDto;
 import com.example.userservice.entity.UserEntity;
+import org.springframework.cloud.client.loadbalancer.Response;
+import org.springframework.http.ResponseEntity;
 
 public interface UserService {
-    ResponseUserDto findUser(Long id);
-    Long createUser(RequestUserDto dto);
-
-
 
 
 
     default ResponseUserDto toResponseDto(UserEntity userEntity) {
         return ResponseUserDto.builder()
-                .age(userEntity.getAge())
-                .userId(userEntity.getUserId())
-                .email(userEntity.getEmail())
-                .name(userEntity.getName())
+                .sex(userEntity.getSex())
                 .phoneNumber(userEntity.getPhoneNumber())
+                .name(userEntity.getName())
+                .email(userEntity.getEmail())
+                .age(userEntity.getAge())
+                .birth(userEntity.getBirth())
                 .build();
     }
     default RequestUserDto toRequestDto(UserEntity userEntity){
         return RequestUserDto.builder()
-                .userId(userEntity.getUserId())
+                .sex(userEntity.getSex())
                 .age(userEntity.getAge())
+                .birth(userEntity.getBirth())
                 .email(userEntity.getEmail())
                 .name(userEntity.getName())
                 .phoneNumber(userEntity.getPhoneNumber())
+                .userPwd(userEntity.getUserPwd())
                 .build();
     }
     default UserEntity requestToEntity(RequestUserDto dto){
         return UserEntity.builder()
-                .userId(dto.getUserId())
-                .age(dto.getAge())
                 .email(dto.getEmail())
                 .name(dto.getName())
+                .sex(dto.getSex())
+                .age(dto.getAge())
+                .birth(dto.getBirth())
                 .userPwd(dto.getUserPwd())
                 .phoneNumber(dto.getPhoneNumber())
                 .build();
     }
 
+    Long createUser(RequestUserDto dto);
+
+    ResponseEntity<ResponseUserDto> login(RequestUserDto dto);
+
+    ResponseEntity<ResponseUserDto> modify(RequestUserDto dto);
 }
