@@ -33,11 +33,11 @@ public class UserServiceImpl implements UserService{
      * 로그인
      */
     @Override
-    public ResponseEntity<ResponseUserDto> login(RequestUserDto dto) {
+    public ResponseEntity<ResponseUserDto> login(String email, String password) {
         UserEntity userEntity =  null;
         ResponseUserDto responseUserDto = null;
         try {
-            userEntity = userRepository.login(dto);
+            userEntity = userRepository.login(email, password);
 
             responseUserDto = ResponseUserDto.builder()
                     .birth(userEntity.getBirth())

@@ -45,7 +45,8 @@ public interface UserService {
 
     Long createUser(RequestUserDto dto);
 
-    ResponseEntity<ResponseUserDto> login(RequestUserDto dto);
 
     ResponseEntity<ResponseUserDto> modify(RequestUserDto dto);
+
+    ResponseEntity<ResponseUserDto> login(String email, String password);
 }

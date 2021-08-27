@@ -23,12 +23,6 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     private final EntityManager em;
     private final JPAQueryFactory jpaQueryFactory;
 
-    @Override
-    public UserEntity login(RequestUserDto dto) {
-        return jpaQueryFactory.selectFrom(userEntity)
-                .where(userEntity.email.eq(dto.getEmail()), userEntity.userPwd.eq(dto.getUserPwd()))
-                .fetchOne();
-    }
 
     // 회원정보 수정
     @Override
@@ -41,5 +35,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
         em.persist(userEntity);
 
         return userEntity;
+    }
+
+    @Override
+    public UserEntity login(String email, String password) {
+        return jpaQueryFactory.selectFrom(userEntity)
+                .where(userEntity.email.eq(email), userEntity.userPwd.eq(password))
+                .fetchOne();
     }
 }

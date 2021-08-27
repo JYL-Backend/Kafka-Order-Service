@@ -7,7 +7,8 @@ import org.springframework.cloud.client.loadbalancer.Response;
 import org.springframework.http.ResponseEntity;
 
 public interface UserRepositoryCustom {
-    UserEntity login(RequestUserDto dto);
 
     UserEntity modify(RequestUserDto dto);
+
+    UserEntity login(String email, String password);
 }
