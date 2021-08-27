@@ -1,5 +1,7 @@
 package com.example.userservice.controller;
 
+import com.example.userservice.dto.JWTDto;
+import com.example.userservice.dto.LoginDto;
 import com.example.userservice.dto.RequestUserDto;
 import com.example.userservice.dto.ResponseUserDto;
 import com.example.userservice.service.UserService;
@@ -30,12 +32,10 @@ public class UserController {
         return userService.modify(dto);
     }
 //    로그인
-    @ApiOperation(value="로그인" , notes = "[응답코드]\n로그인 성공 : 200\n로그인 실패 : 404")
+    @ApiOperation(value="로그인" , notes = "[응답코드]\n로그인 성공 : 200\n로그인 실패 : 404\n 로그인 성공시 token 발급")
     @PostMapping("/login")
-    public ResponseEntity<ResponseUserDto> login(
-            @RequestParam("email") String email,
-            @RequestParam("password") String password
-    ){
-        return userService.login(email,password);
+    public ResponseEntity<JWTDto> login(@RequestBody LoginDto loginDto){
+        System.out.println("로그인 감지 : " + loginDto.getEmail());
+        return userService.login(loginDto.getEmail(),loginDto.getPassword());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.userservice.service;
 
+import com.example.userservice.dto.JWTDto;
 import com.example.userservice.dto.RequestUserDto;
 import com.example.userservice.dto.ResponseUserDto;
 import com.example.userservice.entity.UserEntity;
@@ -48,5 +49,5 @@ public interface UserService {
 
     ResponseEntity<ResponseUserDto> modify(RequestUserDto dto);
 
-    ResponseEntity<ResponseUserDto> login(String email, String password);
+    ResponseEntity<JWTDto> login(String email, String password);
 }

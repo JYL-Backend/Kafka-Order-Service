@@ -1,9 +1,11 @@
 package com.example.userservice.service;
 
+import com.example.userservice.dto.JWTDto;
 import com.example.userservice.dto.RequestUserDto;
 import com.example.userservice.dto.ResponseUserDto;
 import com.example.userservice.entity.UserEntity;
 import com.example.userservice.repository.UserRepository;
+import com.example.userservice.security.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.loadbalancer.Response;
 import org.springframework.http.HttpStatus;
@@ -33,9 +35,10 @@ public class UserServiceImpl implements UserService{
      * 로그인
      */
     @Override
-    public ResponseEntity<ResponseUserDto> login(String email, String password) {
+    public ResponseEntity<JWTDto> login(String email, String password) {
         UserEntity userEntity =  null;
         ResponseUserDto responseUserDto = null;
+        String token = null;
         try {
             userEntity = userRepository.login(email, password);
 
@@ -47,11 +50,13 @@ public class UserServiceImpl implements UserService{
                     .sex(userEntity.getSex())
                     .phoneNumber(userEntity.getPhoneNumber())
                     .build();
+
+            token = new JWTUtil().generateToken(userEntity.getEmail());
         } catch (Exception ex){}
 
         return userEntity==null
                 ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND)
-                : new ResponseEntity<>(null,HttpStatus.OK);
+                : new ResponseEntity<>(JWTDto.builder().token(token).build(),HttpStatus.OK);
     }
 
     /**
