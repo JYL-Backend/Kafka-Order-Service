@@ -25,7 +25,6 @@ public class SwaggerConfig {
                 .version("1.0")
                 .build();
     }
-
     @Bean
     public Docket commonApi() {
         return new Docket(DocumentationType.SWAGGER_2)

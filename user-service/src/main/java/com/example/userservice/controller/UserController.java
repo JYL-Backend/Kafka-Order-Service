@@ -35,7 +35,6 @@ public class UserController {
     @ApiOperation(value="로그인" , notes = "[응답코드]\n로그인 성공 : 200\n로그인 실패 : 404\n 로그인 성공시 token 발급")
     @PostMapping("/login")
     public ResponseEntity<JWTDto> login(@RequestBody LoginDto loginDto){
-        System.out.println("로그인 감지 : " + loginDto.getEmail());
         return userService.login(loginDto.getEmail(),loginDto.getPassword());
     }
 }
